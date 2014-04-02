@@ -40,7 +40,7 @@ class AbstractReplacementPolicy
     /* touch a block. a.k.a. update timestamp */
     virtual void touch(Index set, Index way, Tick time) = 0;
 
-    /* returns the way to replace */
+    /* returns the way to replace in a given set */
     virtual Index getVictim(Index set) const = 0;
 
     /* get the time of the last access */
