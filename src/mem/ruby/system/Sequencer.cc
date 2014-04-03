@@ -37,6 +37,7 @@
 #include "debug/ProtocolTrace.hh"
 #include "debug/RubySequencer.hh"
 #include "debug/RubyStats.hh"
+#include "debug/RubyOriginalPort.hh"
 #include "mem/protocol/PrefetchBit.hh"
 #include "mem/protocol/RubyAccessMode.hh"
 #include "mem/ruby/common/Global.hh"
@@ -214,6 +215,9 @@ Sequencer::insertRequest(PacketPtr pkt, RubyRequestType request_type)
 {
     assert(m_outstanding_count ==
         (m_writeRequestTable.size() + m_readRequestTable.size()));
+
+    //dumb trace log
+    DPRINTF(RubyOriginalPort, "Just kidding\n");
 
     // See if we should schedule a deadlock check
     if (!deadlockCheckEvent.scheduled() &&

@@ -53,11 +53,12 @@ DebugFlag('RubySystem')
 DebugFlag('RubyTester')
 DebugFlag('RubyStats')
 DebugFlag('RubyResourceStalls')
+DebugFlag('RubyOriginalPort')
 
 CompoundFlag('Ruby', [ 'RubyQueue', 'RubyNetwork', 'RubyTester',
     'RubyGenerated', 'RubySlicc', 'RubySystem', 'RubyCache',
     'RubyMemory', 'RubyDma', 'RubyPort', 'RubySequencer', 'RubyCacheTrace',
-    'RubyPrefetcher'])
+    'RubyPrefetcher','RubyOriginalPort'])
 
 if env['TARGET_ISA'] == 'null':
     Return()
