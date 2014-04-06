@@ -1692,7 +1692,7 @@ Cache<TagStore>::getTimingPacket()
     PacketPtr tgt_pkt = mshr->getTarget()->pkt;
     PacketPtr pkt = NULL;
 
-    DPRINTF(CachePort, "%s %s for address %x size %d\n", __func__,
+    DPRINTF(CachePort, "%s\t%s\t%x\t%d\n", __func__,
             tgt_pkt->cmdString(), tgt_pkt->getAddr(), tgt_pkt->getSize());
 
     if (tgt_pkt->cmd == MemCmd::SCUpgradeFailReq ||
