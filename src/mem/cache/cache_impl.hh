@@ -59,6 +59,7 @@
 #include "debug/Cache.hh"
 #include "debug/CachePort.hh"
 #include "debug/CacheTags.hh"
+#include "debug/CacheCheck.hh"
 #include "mem/cache/prefetch/base.hh"
 #include "mem/cache/blk.hh"
 #include "mem/cache/cache.hh"
@@ -291,6 +292,15 @@ bool
 Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
                         Cycles &lat, PacketList &writebacks)
 {
+    
+    /**
+     * There will be an access on each level of caches no matter requested
+     * data in the cache or not.
+     */
+    
+    DPRINTF(CacheCheck, "%p\taccess\t%s\t%s\t%x\t%d", pkt, __func__,
+            pkt->cmdString(), pkt->getAddr(), pkt->getSize());
+    
     DPRINTF(Cache, "%s for %s address %x size %d\n", __func__,
             pkt->cmdString(), pkt->getAddr(), pkt->getSize());
     if (pkt->req->isUncacheable()) {
