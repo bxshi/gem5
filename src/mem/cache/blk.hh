@@ -125,6 +125,9 @@ class CacheBlk
     int srcMasterId;
 
     Tick tickInserted;
+    
+    /** Which process/thread this block belongs to, -1 means everyone could use it. */
+    int belongTo=-1;
 
   protected:
     /**
@@ -193,6 +196,11 @@ class CacheBlk
         refCount = rhs.refCount;
         task_id = rhs.task_id;
         return *this;
+    }
+    
+    bool isBelongsTo(int parent) const
+    {
+        return (belongTo == parent || belongTo == -1);
     }
 
     /**
