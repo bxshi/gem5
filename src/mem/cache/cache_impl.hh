@@ -298,7 +298,7 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
      * data in the cache or not.
      */
     
-    DPRINTF(CacheCheck, "%p\taccess\t%s\t%s\t%x\t%d", pkt, __func__,
+    DPRINTF(CacheCheck, "%p\taccess\t%s\t%s\t%x\t%d\n", pkt, __func__,
             pkt->cmdString(), pkt->getAddr(), pkt->getSize());
     
     DPRINTF(Cache, "%s for %s address %x size %d\n", __func__,
