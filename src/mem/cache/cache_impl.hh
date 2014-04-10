@@ -312,8 +312,8 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
     int id = pkt->req->hasContextId() ? pkt->req->contextId() : -1;
     blk = tags->accessBlock(pkt->getAddr(), pkt->isSecure(), lat, id);
 
-    DPRINTF(CacheCheck, "%p,%s,%s,%x,%d,%s\n", pkt, __func__,
-            pkt->cmdString(), pkt->getAddr(), pkt->getSize(),blk?"hit":"miss");
+    DPRINTF(CacheCheck, "%p,%s,%s,%x,%d,%s,%u\n", pkt, __func__,
+            pkt->cmdString(), pkt->getAddr(), pkt->getSize(),blk?"hit":"miss",pkt->req->time());
     
     DPRINTF(Cache, "%s%s %x (%s) %s %s\n", pkt->cmdString(),
             pkt->req->isInstFetch() ? " (ifetch)" : "",
@@ -422,8 +422,8 @@ bool
 Cache<TagStore>::recvTimingReq(PacketPtr pkt)
 {  
     DPRINTF(CacheTags, "%s tags: %s\n", __func__, tags->print());
-    DPRINTF(CacheCheck, "%p,%s,%s,%x,%d\n", pkt, __func__,
-            pkt->cmdString(), pkt->getAddr(), pkt->getSize());
+    DPRINTF(CacheCheck, "%p,%s,%s,%x,%d,%u\n", pkt, __func__,
+            pkt->cmdString(), pkt->getAddr(), pkt->getSize(),pkt->req->time());
     
 //@todo Add back in MemDebug Calls
 //    MemDebug::cacheAccess(pkt);
