@@ -644,7 +644,7 @@ Cache<TagStore>::getBusPacket(PacketPtr cpu_pkt, BlkType *blk,
     
     //Output Package we get from bus
     //TODO change pre-defined blocksize into something adjustable
-    DPRINTF(CacheRoute, "%p MasterId: %u TaskId: %u OriginPort: %d Addr: %u Size: %u Offset: %u\n Blk: %p",
+    DPRINTF(Cache, "%p MasterId: %u TaskId: %u OriginPort: %d Addr: %u Size: %u Offset: %u\n Blk: %p",
             cpu_pkt->req, cpu_pkt->req->masterId(), cpu_pkt->req->taskId(),
             cpu_pkt->origin, cpu_pkt->getAddr(), cpu_pkt->getSize(), 
             cpu_pkt->getOffset(64),blk);
