@@ -298,8 +298,7 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
      * data in the cache or not.
      */
     
-    DPRINTF(CacheCheck, "%p\taccess\t%s\t%s\t%x\t%d\n", pkt, __func__,
-            pkt->cmdString(), pkt->getAddr(), pkt->getSize());
+
     
     DPRINTF(Cache, "%s for %s address %x size %d\n", __func__,
             pkt->cmdString(), pkt->getAddr(), pkt->getSize());
@@ -313,6 +312,9 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
     int id = pkt->req->hasContextId() ? pkt->req->contextId() : -1;
     blk = tags->accessBlock(pkt->getAddr(), pkt->isSecure(), lat, id);
 
+    DPRINTF(CacheCheck, "%p\t%s\t%s\t%x\t%d\t%\n", pkt, __func__,
+            pkt->cmdString(), pkt->getAddr(), pkt->getSize(),blk?"hit":"miss");
+    
     DPRINTF(Cache, "%s%s %x (%s) %s %s\n", pkt->cmdString(),
             pkt->req->isInstFetch() ? " (ifetch)" : "",
             pkt->getAddr(), pkt->isSecure() ? "s" : "ns",
@@ -418,8 +420,11 @@ Cache<TagStore>::recvTimingSnoopResp(PacketPtr pkt)
 template<class TagStore>
 bool
 Cache<TagStore>::recvTimingReq(PacketPtr pkt)
-{
+{  
     DPRINTF(CacheTags, "%s tags: %s\n", __func__, tags->print());
+    DPRINTF(CacheCheck, "%p\t%s\t%s\t%x\t%d\t%\n", pkt, __func__,
+            pkt->cmdString(), pkt->getAddr(), pkt->getSize(),blk?"hit":"miss");
+    
 //@todo Add back in MemDebug Calls
 //    MemDebug::cacheAccess(pkt);
 
@@ -636,6 +641,15 @@ PacketPtr
 Cache<TagStore>::getBusPacket(PacketPtr cpu_pkt, BlkType *blk,
                               bool needsExclusive) const
 {
+    
+    //Output Package we get from bus
+    //TODO change pre-defined blocksize into something adjustable
+    DPRINTF(CacheRoute, "%p MasterId: %u TaskId: %u OriginPort: %d Addr: %u Size: %u Offset: %u\n Blk: %p",
+            cpu_pkt->req, cpu_pkt->req->masterId(), cpu_pkt->req->taskId(),
+            cpu_pkt->origin, cpu_pkt->getAddr(), cpu_pkt->getSize(), 
+            cpu_pkt->getOffset(64),blk);
+    
+    
     bool blkValid = blk && blk->isValid();
 
     if (cpu_pkt->req->isUncacheable()) {
