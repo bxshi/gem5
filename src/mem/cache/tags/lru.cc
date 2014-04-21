@@ -184,10 +184,10 @@ LRU::findVictim(Addr addr)
     unsigned set = extractSet(addr);
     // grab a replacement candidate
     BlkType *blk = sets[set].blks[assoc-1];
-
+    
     if (blk->isValid()) {
-        DPRINTF(CacheRepl, "set %x: selecting blk %x for replacement\n",
-                set, regenerateBlkAddr(blk->tag, set));
+        DPRINTF(CacheRepl, "set %x: selecting blk %x for replacement, ref\n",
+                set, regenerateBlkAddr(blk->tag, set), blk->refCount);
     }
     return blk;
 }
