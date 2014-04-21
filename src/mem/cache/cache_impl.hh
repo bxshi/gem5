@@ -313,7 +313,7 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
     blk = tags->accessBlock(pkt->getAddr(), pkt->isSecure(), lat, id);
 
     DPRINTF(CacheCheck, "%d,%d,%p,%s,%s,%x,%d,%s,%u\n", pkt->req->threadId(),
-            id, 
+            pkt->req->hasContextId() ? pkt->req->contextId() : -1, 
             pkt, __func__, pkt->cmdString(), pkt->getAddr(), pkt->getSize(), 
             blk?"hit":"miss",pkt->req->time());
     
