@@ -50,6 +50,7 @@
 #include "base/intmath.hh"
 #include "debug/Cache.hh"
 #include "debug/CacheRepl.hh"
+#include "debug/BlkContext.hh"
 #include "mem/cache/tags/lru.hh"
 #include "mem/cache/base.hh"
 #include "sim/core.hh"
@@ -158,6 +159,8 @@ LRU::accessBlock(Addr addr, bool is_secure, Cycles &lat, int master_id)
         blk->refCount += 1;
     }
 
+    DPRINTF(BlkContext, "Blk %p belongs to %d used by %d\n", blk->tag, blk->belongTo, blk->usedBy);
+    
     return blk;
 }
 

@@ -312,6 +312,8 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
     int id = pkt->req->hasContextId() ? pkt->req->contextId() : -1;
     blk = tags->accessBlock(pkt->getAddr(), pkt->isSecure(), lat, id);
 
+    
+    //ThreadId is useless right now. We decide to use contextId. 
     DPRINTF(CacheCheck, "%d,%d,%p,%s,%s,%x,%d,%s,%u\n", pkt->req->threadId(),
             pkt->req->hasContextId() ? pkt->req->contextId() : -1, 
             pkt, __func__, pkt->cmdString(), pkt->getAddr(), pkt->getSize(), 

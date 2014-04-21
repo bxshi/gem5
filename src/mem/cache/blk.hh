@@ -128,6 +128,9 @@ class CacheBlk
     
     /** Which process/thread this block belongs to, -1 means everyone could use it. */
     int belongTo=-1;
+    
+    /** Which process/thread this block used by. -1 means everyone could access it. */
+    int usedBy=-1;
 
   protected:
     /**
