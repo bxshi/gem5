@@ -157,9 +157,8 @@ LRU::accessBlock(Addr addr, bool is_secure, Cycles &lat, int master_id)
             lat = cache->ticksToCycles(blk->whenReady - curTick());
         }
         blk->refCount += 1;
+        DPRINTF(BlkContext, "Blk %u belongs to %d used by %d\n", addr, blk->belongTo, blk->usedBy);
     }
-
-    //DPRINTF(BlkContext, "Blk %u belongs to %d used by %d\n", addr, blk->belongTo, blk->usedBy);
     
     return blk;
 }
