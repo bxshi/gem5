@@ -186,7 +186,7 @@ LRU::findVictim(Addr addr)
     BlkType *blk = sets[set].blks[assoc-1];
     
     if (blk->isValid()) {
-        DPRINTF(CacheRepl, "set %x: selecting blk %x for replacement, ref\n",
+        DPRINTF(CacheRepl, "set %x: selecting blk %x for replacement, ref %d \n",
                 set, regenerateBlkAddr(blk->tag, set), blk->refCount);
     }
     return blk;
