@@ -572,6 +572,7 @@ class Request
     int
     threadId() const
     {
+        //If the request is WriteBack, then the threadId is -1
         return privateFlags.isSet(VALID_THREAD_ID) ? _threadId : -1;
     }
 
