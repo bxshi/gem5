@@ -572,8 +572,7 @@ class Request
     int
     threadId() const
     {
-        assert(privateFlags.isSet(VALID_THREAD_ID));
-        return _threadId;
+        return privateFlags.isSet(VALID_THREAD_ID) ? _threadId : -1;
     }
 
     void
