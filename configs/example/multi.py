@@ -209,8 +209,9 @@ for i in xrange(np):
     elif len(multiprocesses) == 1:
         system.cpu[i].workload = multiprocesses[0]
     else:
-    	print i, system.cpu[i].workload
         system.cpu[i].workload = multiprocesses[i]
+    	print i, system.cpu[i].workload
+
 
     if options.fastmem:
         system.cpu[i].fastmem = True
