@@ -81,6 +81,8 @@ def get_processes(options):
     if options.options != "":
         pargs = options.options.split(';')
 
+    print "workloads", workloads
+
     idx = 0
     for wrkld in workloads:
         process = LiveProcess()
