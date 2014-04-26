@@ -340,9 +340,6 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
     // Writeback handling is special case.  We can write the block
     // into the cache without having a writeable copy (or any copy at
     // all).
-    int fllag=0;
-    if (blk==NULL)
-        fllag=1;
     if (pkt->cmd == MemCmd::Writeback) {
         assert(blkSize == pkt->getSize());
         if (blk == NULL) {
@@ -365,9 +362,6 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
         // nothing else to do; writeback doesn't expect response
         assert(!pkt->needsResponse());
         DPRINTF(Cache, "%s new state is %s\n", __func__, blk->print());
-                //if masterId is not -1 (which means it is not WriteBack, we assign masterId to blk->usedBy)
-        if (fllag)
-            blk->realAddr = pkt->getAddr();
         incHitCount(pkt);
         return true;
     }
@@ -377,9 +371,6 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
     if (blk == NULL && pkt->isLLSC() && pkt->isWrite()) {
         // complete miss on store conditional... just give up now
         pkt->req->setExtraData(0);
-                        //if masterId is not -1 (which means it is not WriteBack, we assign masterId to blk->usedBy)
-        if (fllag)
-            blk->realAddr = pkt->getAddr();
         return true;
     }
 
@@ -1265,7 +1256,7 @@ Cache<TagStore>::allocateBlock(Addr addr, bool is_secure,
             }
         }
     }
-
+    blk->realAddr=addr;
     return blk;
 }
 
