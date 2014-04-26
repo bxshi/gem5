@@ -1256,7 +1256,7 @@ Cache<TagStore>::allocateBlock(Addr addr, bool is_secure,
             }
         }
     }
-    blk->realAddr=(addr >> 9) << 9;
+    blk->realAddr=(addr >> 6) << 6;
     return blk;
 }
 
