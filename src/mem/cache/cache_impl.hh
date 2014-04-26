@@ -376,12 +376,12 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
     if (blk == NULL && pkt->isLLSC() && pkt->isWrite()) {
         // complete miss on store conditional... just give up now
         pkt->req->setExtraData(0);
-        return true;
-                //if masterId is not -1 (which means it is not WriteBack, we assign masterId to blk->usedBy)
+                        //if masterId is not -1 (which means it is not WriteBack, we assign masterId to blk->usedBy)
         if(id!=-1){
             blk->usedBy = id;
             blk->realAddr = pkt->getAddr();
         }
+        return true;
     }
 
     return false;
