@@ -72,8 +72,8 @@ class CacheSet
      * @param is_secure True if the target memory space is secure.
      * @return Pointer to the block if found. Set way_id to assoc if none found
      */
-    Blktype* findBlk(Addr tag, bool is_secure, int& way_id) const ;
-    Blktype* findBlk(Addr tag, bool is_secure) const ;
+    Blktype* findBlk(Addr addr, Addr tag, bool is_secure, int& way_id) const ;
+    Blktype* findBlk(Addr addr, Addr tag, bool is_secure) const ;
 
     /**
      * Move the given block to the head of the list.
