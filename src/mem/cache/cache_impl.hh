@@ -314,10 +314,10 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
 
     
     //ThreadId is useless right now. We decide to use contextId. 
-    DPRINTF(CacheCheck, "%d,%d,%p,%s,%s,%x,%d,%s,%u\n", pkt->req->threadId(),
+    DPRINTF(CacheCheck, "%d,%d,%p,%s,%s,%x,%d,%s,%u, %u\n", pkt->req->threadId(),
             pkt->req->hasContextId() ? pkt->req->contextId() : -1, 
             pkt, __func__, pkt->cmdString(), pkt->getAddr(), pkt->getSize(), 
-            blk?"hit":"miss",pkt->req->time());
+            blk?"hit":"miss",pkt->req->time(),curTick());
     
     DPRINTF(Cache, "%s%s %x (%s) %s %s\n", pkt->cmdString(),
             pkt->req->isInstFetch() ? " (ifetch)" : "",
