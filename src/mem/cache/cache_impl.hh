@@ -362,6 +362,11 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
         // nothing else to do; writeback doesn't expect response
         assert(!pkt->needsResponse());
         DPRINTF(Cache, "%s new state is %s\n", __func__, blk->print());
+                //if masterId is not -1 (which means it is not WriteBack, we assign masterId to blk->usedBy)
+        if(master_id!=-1){
+            blk->usedBy = master_id;
+            blk->realAddr = addr;
+        }
         incHitCount(pkt);
         return true;
     }
@@ -372,6 +377,11 @@ Cache<TagStore>::access(PacketPtr pkt, BlkType *&blk,
         // complete miss on store conditional... just give up now
         pkt->req->setExtraData(0);
         return true;
+                //if masterId is not -1 (which means it is not WriteBack, we assign masterId to blk->usedBy)
+        if(master_id!=-1){
+            blk->usedBy = master_id;
+            blk->realAddr = addr;
+        }
     }
 
     return false;
