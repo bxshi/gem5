@@ -133,7 +133,7 @@ LRU::accessBlock(Addr addr, bool is_secure, Cycles &lat, int master_id)
     Addr tag = extractTag(addr);
     unsigned set = extractSet(addr);
     DPRINTF(CacheRepl, "LRU %d %d %u %u %u\n", tagShift, setShift, setMask, set, tag);
-    BlkType *blk = sets[set].findBlk(tag, is_secure);
+    BlkType *blk = sets[set].findBlk(addr, tag, is_secure);
     lat = hitLatency;
 
     // Access all tags in parallel, hence one in each way.  The data side
@@ -176,7 +176,7 @@ LRU::findBlock(Addr addr, bool is_secure) const
 {
     Addr tag = extractTag(addr);
     unsigned set = extractSet(addr);
-    BlkType *blk = sets[set].findBlk(tag, is_secure);
+    BlkType *blk = sets[set].findBlk(addr, tag, is_secure);
     return blk;
 }
 

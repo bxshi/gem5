@@ -91,7 +91,7 @@ class CacheSet
 
 template <class Blktype>
 Blktype*
-CacheSet<Blktype>::findBlk(Addr tag, bool is_secure, int& way_id) const
+CacheSet<Blktype>::findBlk(Addr addr, Addr tag, bool is_secure, int& way_id) const
 {
     /**
      * Way_id returns the id of the way that matches the block
@@ -102,7 +102,11 @@ CacheSet<Blktype>::findBlk(Addr tag, bool is_secure, int& way_id) const
         if (blks[i]->tag == tag && blks[i]->isValid() &&
             blks[i]->isSecure() == is_secure) {
             way_id = i;
-            return blks[i];
+            if(addr == blks[i]->realAddr){
+                return blks[i]; 
+            }else{
+                return NULL;
+            }
         }
     }
     return NULL;
@@ -110,10 +114,10 @@ CacheSet<Blktype>::findBlk(Addr tag, bool is_secure, int& way_id) const
 
 template <class Blktype>
 Blktype*
-CacheSet<Blktype>::findBlk(Addr tag, bool is_secure) const
+CacheSet<Blktype>::findBlk(Addr addr, Addr tag, bool is_secure) const
 {
     int ignored_way_id;
-    return findBlk(tag, is_secure, ignored_way_id);
+    return findBlk(addr, tag, is_secure, ignored_way_id);
 }
 
 template <class Blktype>
