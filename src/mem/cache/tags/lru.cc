@@ -162,6 +162,7 @@ LRU::accessBlock(Addr addr, bool is_secure, Cycles &lat, int master_id)
         //if masterId is not -1 (which means it is not WriteBack, we assign masterId to blk->usedBy)
         if(master_id!=-1){
             blk->usedBy = master_id;
+            blk->realAddr = addr;
         }
         DPRINTF(BlkContext, "Blk %u belongs to %d used by %d masterId is %d\n", addr, blk->belongTo, blk->usedBy, master_id);
     }
