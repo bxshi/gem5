@@ -49,7 +49,7 @@
 #define __CACHESET_HH__
 
 #include <cassert>
-
+#include <stdio.h>
 #include "mem/cache/blk.hh" // base class
 
 /**
@@ -101,6 +101,7 @@ CacheSet<Blktype>::findBlk(Addr addr, Addr tag, bool is_secure, int& way_id) con
     for (int i = 0; i < assoc; ++i) {
         if (blks[i]->tag == tag && blks[i]->isValid() &&
             blks[i]->isSecure() == is_secure) {
+            printf("%d  %d\n",blks[i]->readAddr,addr);
             way_id = i;
             return blks[i]; 
         }
