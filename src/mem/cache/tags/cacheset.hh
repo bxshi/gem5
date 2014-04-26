@@ -100,7 +100,7 @@ CacheSet<Blktype>::findBlk(Addr addr, Addr tag, bool is_secure, int& way_id) con
     way_id = assoc;
     for (int i = 0; i < assoc; ++i) {
         if (blks[i]->tag == tag && blks[i]->isValid() &&
-            blks[i]->isSecure() == is_secure && addr == blks[i]->realAddr) {
+            blks[i]->isSecure() == is_secure) {
             way_id = i;
             return blks[i]; 
         }
