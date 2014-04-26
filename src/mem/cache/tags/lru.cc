@@ -132,6 +132,7 @@ LRU::accessBlock(Addr addr, bool is_secure, Cycles &lat, int master_id)
 {
     Addr tag = extractTag(addr);
     unsigned set = extractSet(addr);
+    DPRINTF(CacheCheck, "LRU %d %d %u %u %u", tagShift, setShift, setMask, set, tag);
     BlkType *blk = sets[set].findBlk(tag, is_secure);
     lat = hitLatency;
 
