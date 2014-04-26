@@ -1254,9 +1254,12 @@ Cache<TagStore>::allocateBlock(Addr addr, bool is_secure,
                 // Save writeback packet for handling by caller
                 writebacks.push_back(writebackBlk(blk));
             }
+            blk->realAddr=repl_addr;
         }
     }
-    blk->realAddr=addr;
+    else
+        blk->realAddr=addr;
+    blk->realAddr=repl_addr;
     return blk;
 }
 
