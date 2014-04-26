@@ -131,6 +131,8 @@ class CacheBlk
     
     /** Which process/thread this block used by. -1 means everyone could access it. */
     int usedBy=-1;
+    
+    Addr realAddr=0;
 
   protected:
     /**
